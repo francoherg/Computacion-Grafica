@@ -18,7 +18,7 @@ current_source=main.cpp
 path_char=\
 [source]
 path=main.cpp
-cursor=96:2
+cursor=136:59
 open=true
 [source]
 path=..\common\utils\ObjMesh.cpp
@@ -50,6 +50,7 @@ cursor=0:0
 [source]
 path=..\common\third\imgui\imgui_widgets.cpp
 cursor=0:0
+open=true
 [source]
 path=..\common\utils\Window.cpp
 cursor=67:50

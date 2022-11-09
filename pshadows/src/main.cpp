@@ -87,7 +87,10 @@ int main() {
 		glClearStencil(0);
 		
 		// draw objects
-		glStencilOp(GL_REPLACE,GL_KEEP,GL_KEEP);
+
+		
+		
+		glStencilOp(GL_REPLACE,GL_KEEP,GL_KEEP);//falla el stencil asi que no va a la pantalla, pero sigue modificando el stencil
 		glStencilFunc(GL_NEVER,4,0xFF); //nunca pasa el stencil, pero lo modifica igual
 		drawFloor(true); //claro // solo lo uso para definir el area de dibujado
 		
@@ -95,12 +98,18 @@ int main() {
 		glStencilFunc(GL_EQUAL,4,0xFF); //solo pasa el stencil si dibuja sobre una zona donde haya fragmentos con el valor 4
 		drawObject(reflection);
 		
-		glStencilOp(GL_REPLACE,GL_KEEP,GL_KEEP); //falla el stencil asi que no va a la pantalla, pero sigue modificando el stencil
-		glStencilFunc(GL_NEVER,3,0xFF); //todo lo que dibujaria aca va a tener valor 1
+		//glStencilFunc(GL_GREATER,3,0xFF); //todo lo que dibujaria aca va a tener valor 1
+
+		
+		glStencilOp(GL_REPLACE,GL_KEEP,GL_ZERO);
+		glStencilFunc(GL_GREATER,3,0xFF);
+		glDepthFunc(GL_NEVER);
 		drawObject(shadow);
+		glDepthFunc(GL_LESS);
+	
 		
 		glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE); //lo dibuja solo si pasa todos los test
-		glStencilFunc(GL_ALWAYS,2,0xFF); //pasa siempre el stencil
+		glStencilFunc(GL_ALWAYS,1,0xFF); //pasa siempre el stencil
 		drawObject(identity);
 		
 
@@ -108,7 +117,7 @@ int main() {
 		glStencilOp(GL_KEEP,GL_KEEP,GL_REPLACE);//solo dibuja si pasa tambien el depthtest
 		glStencilFunc(GL_EQUAL,3,0xFF);//dibuja solo la parte que esta enfrente de algo que tiene valor 3
 		drawFloor(false); //oscuro
-		glStencilFunc(GL_NOTEQUAL,3,0xFF);
+		glStencilFunc(GL_LESS,2,0xFF);
 		drawFloor(true); //claro
 		
 		
